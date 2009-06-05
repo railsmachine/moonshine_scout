@@ -1,0 +1,19 @@
+= Moonshine_Scout
+
+=== A plugin for Moonshine[http://github.com/railsmachine/moonshine]
+
+A plugin for installing and managing the {Scout reporting agent}[http://github.com/highgroove/scout_agent/tree/master]. You'll need to have an existing {Scout account}[http://scoutapp.com to use this plugin].
+
+At a minimum, you'll need to configure the Scout agent key for your server. This key will be provided 
+at the time you add a server, and is also available under the Server Admin section.
+
+For other options, have a look at @templates/scout_agent.rb.erb@
+
+=== Instructions
+
+* <tt>script/plugin install git://github.com/railsmachine/moonshine_scout.git</tt>
+* Configure settings
+    configure( :scout => { :agent_key => 'YOUR-PRIVATE-SCOUT-KEY'} )
+* Include the plugin and recipe(s) in your Moonshine manifest
+    plugin :scout
+    recipe :scout
