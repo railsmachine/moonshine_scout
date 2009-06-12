@@ -17,7 +17,16 @@ module Scout
       return
     end
     
-    gem 'scout_agent'
+    # normally we'd use "gem 'scout_agent", but we need to send a notification here
+    package 'scout_agent', :provider => :gem, :ensure => :installed, :notify => exec('identify_scout')
+
+    exec 'identify_scout',
+      :refreshonly => true,
+      :before => file('/etc/scout_agent.rb'),
+      :cwd => '/tmp',
+      :command => ["echo #{options[:agent_key]} > scout.key",
+                   "scout_agent identify scout.key",
+                   "rm scout.key"].join(' && ')
 
     file '/etc/scout_agent.rb',
       :content => template(File.join(File.dirname(__FILE__), '..', 'templates', 'scout_agent.rb.erb'), binding),
