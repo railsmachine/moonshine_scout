@@ -17,6 +17,9 @@ module Scout
       return
     end
     
+    # provides iostat, needed for disk i/o plugin
+    package 'sysstat', :ensure => :installed
+    
     # normally we'd use "gem 'scout_agent", but we need to send a notification here
     package 'scout_agent', :provider => :gem, :ensure => :installed, :notify => exec('identify_scout')
 
