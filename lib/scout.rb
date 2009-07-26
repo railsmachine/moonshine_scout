@@ -16,6 +16,9 @@ module Scout
       puts "  configure( :scout => { :agent_key => 'YOUR-PRIVATE-SCOUT-KEY'} )"
       return
     end
+
+    # needed for apache status plugin
+    package 'lynx', :ensure => :installed
     
     # provides iostat, needed for disk i/o plugin
     package 'sysstat', :ensure => :installed
