@@ -19,6 +19,10 @@ module Scout
 
     # needed for apache status plugin
     package 'lynx', :ensure => :installed
+    cron 'cleanup_lynx_tempfiles',
+      :command  => 'find /tmp/ -name lynx* | xargs rmdir',
+      :hour     => '0',
+      :minute   => '0'
     
     # provides iostat, needed for disk i/o plugin
     package 'sysstat', :ensure => :installed
@@ -27,12 +31,12 @@ module Scout
     package 'scout_agent', :provider => :gem, :ensure => :installed, :notify => exec('identify_scout')
 
     exec 'identify_scout',
-      :refreshonly => true,
-      :before => file('/etc/scout_agent.rb'),
-      :cwd => '/tmp',
-      :command => ["echo #{options[:agent_key]} > scout.key",
-                   "scout_agent identify scout.key",
-                   "rm scout.key"].join(' && ')
+      :refreshonly  => true,
+      :before       => file('/etc/scout_agent.rb'),
+      :cwd          => '/tmp',
+      :command      => ["echo #{options[:agent_key]} > scout.key",
+                    "scout_agent identify scout.key",
+                    "rm scout.key"].join(' && ')
 
     file '/etc/scout_agent.rb',
       :content => template(File.join(File.dirname(__FILE__), '..', 'templates', 'scout_agent.rb.erb'), binding),
