@@ -18,14 +18,14 @@ module Scout
     end
 
     # needed for apache status plugin
-    package 'lynx', :ensure => :installed
+    package 'lynx', :ensure => :installed, :before => package('scout_agent')
     cron 'cleanup_lynx_tempfiles',
       :command  => 'find /tmp/ -name lynx* | xargs rmdir',
       :hour     => '0',
       :minute   => '0'
     
     # provides iostat, needed for disk i/o plugin
-    package 'sysstat', :ensure => :installed
+    package 'sysstat', :ensure => :installed, :before => package('scout_agent')
     
     # normally we'd use "gem 'scout_agent", but we need to send a notification here
     package 'scout_agent', :provider => :gem, :ensure => :installed, :notify => exec('identify_scout')
