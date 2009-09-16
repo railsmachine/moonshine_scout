@@ -1,7 +1,7 @@
 module Scout
 
-  # Define options for this plugin via the <tt>configure</tt> method
-  # in your application manifest:
+  # Define options for this plugin in config/moonshine.yml or the
+  # <tt>configure</tt> method in your application manifest:
   #
   #   configure(:scout => {:foo => true})
   #
@@ -10,49 +10,42 @@ module Scout
   #  plugin :scout
   #  recipe :scout
   def scout(options = {})
-    
+
     unless options[:agent_key]
       puts "To use the Scout agent, specify your key in the application manifest:"
       puts "  configure( :scout => { :agent_key => 'YOUR-PRIVATE-SCOUT-KEY'} )"
       return
     end
 
+    gem 'scout', :ensure => :latest
+    cron 'scout_checkin',
+      :command  => "/usr/bin/scout #{options[:agent_key]}",
+      :minute   => "*/#{options[:interval]||3}",
+      :user     => options[:user] || configuration[:user] || 'daemon'
+
     # needed for apache status plugin
-    package 'lynx', :ensure => :installed, :before => package('scout_agent')
+    package 'lynx', :ensure => :installed, :before => package('scout')
     cron 'cleanup_lynx_tempfiles',
       :command  => 'find /tmp/ -name lynx* | xargs rmdir',
       :hour     => '0',
       :minute   => '0'
-    
+
     # provides iostat, needed for disk i/o plugin
-    package 'sysstat', :ensure => :installed, :before => package('scout_agent')
-    
-    # normally we'd use "gem 'scout_agent", but we need to send a notification here
-    package 'scout_agent', :provider => :gem, :ensure => :installed, :notify => exec('identify_scout')
+    package 'sysstat', :ensure => :installed, :before => package('scout')
 
-    exec 'identify_scout',
-      :refreshonly  => true,
-      :before       => file('/etc/scout_agent.rb'),
-      :cwd          => '/tmp',
-      :command      => ["echo #{options[:agent_key]} > scout.key",
-                    "scout_agent identify scout.key",
-                    "rm scout.key"].join(' && ')
+    # needed for the rails plugin
+    gem 'elif', :before => package('scout')
+    gem 'request-log-analyzer', :before => package('scout')
 
-    file '/etc/scout_agent.rb',
-      :content => template(File.join(File.dirname(__FILE__), '..', 'templates', 'scout_agent.rb.erb'), binding),
-      :mode    => '744',
-      :require => package('scout_agent'),
-      :notify  => service('scout_agent')
-    
+    # disable the old scout_agent
     file '/etc/init.d/scout_agent',
       :content => template(File.join(File.dirname(__FILE__), '..', 'templates', 'scout_agent.init.erb'), binding),
-      :mode    => '744',
-      :require => file('/etc/scout_agent.rb')
-    
+      :mode    => '744'
+
     service 'scout_agent',
-      :enable  => true,
-      :ensure  => :running,
+      :enable  => false,
+      :ensure  => :stopped,
       :require => file('/etc/init.d/scout_agent')
   end
-  
+
 end

@@ -6,7 +6,7 @@
 # Required-Stop:        $all
 # Default-Start:        2 3 4 5
 # Default-Stop:         0 1 6
-# Short-Description:    Scout
+# Short-Description:    Old Scout Agent
 ### END INIT INFO
 
 NAME=scout_agent
@@ -25,10 +25,8 @@ RETVAL=0
 
 case "$1" in
 start)
-  echo -n "Starting $DESC: "
-  /usr/bin/scout_agent start
-  RETVAL=$?
-  echo "$NAME."
+  echo "Disabled. Use scout via cron instead."
+  RETVAL=1
   ;;
 stop)
   echo -n "Stopping $DESC: "
@@ -37,11 +35,10 @@ stop)
   echo "$NAME."
   ;;
 restart)
-  echo -n "Restarting $DESC: "
+  echo -n "Stopping $DESC: "
   /usr/bin/scout_agent stop
-  /usr/bin/scout_agent start
-  RETVAL=$?
-  echo "$NAME."
+  echo "Disabled. Use scout via cron instead."
+  RETVAL=1
   ;;
 status)
   /usr/bin/scout_agent status
