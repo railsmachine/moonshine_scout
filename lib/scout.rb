@@ -12,8 +12,9 @@ module Scout
   def scout(options = {})
 
     unless options[:agent_key]
-      puts "To use the Scout agent, specify your key in the application manifest:"
-      puts "  configure( :scout => { :agent_key => 'YOUR-PRIVATE-SCOUT-KEY'} )"
+      puts "To use the Scout agent, specify your key in config/moonshine.yml:"
+      puts ":scout:"
+      puts "  :agent_key: YOUR-SCOUT-KEY"
       return
     end
 
