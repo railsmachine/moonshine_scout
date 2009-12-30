@@ -21,7 +21,7 @@ module Scout
     gem 'scout', :ensure => :latest
     cron 'scout_checkin',
       :command  => "/usr/bin/scout #{options[:agent_key]}",
-      :minute   => "*/#{options[:interval]||3}",
+      :minute   => "*/#{options[:interval]||1}",
       :user     => options[:user] || configuration[:user] || 'daemon'
 
     # needed for apache status plugin
