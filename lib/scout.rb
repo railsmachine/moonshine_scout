@@ -27,7 +27,7 @@ module Scout
     # needed for apache status plugin
     package 'lynx', :ensure => :installed, :before => package('scout')
     cron 'cleanup_lynx_tempfiles',
-      :command  => 'find /tmp/ -name lynx* | xargs rmdir',
+      :command  => "find /tmp/ -name 'lynx*' -type d -delete",
       :hour     => '0',
       :minute   => '0'
 
