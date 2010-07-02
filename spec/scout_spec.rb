@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'spec_helper.rb')
 
 class ScoutManifest < Moonshine::Manifest
-  plugin :scout
+  include Moonshine::Scout
 end
 
 describe "A manifest with the Scout plugin" do
