@@ -35,6 +35,13 @@ module Moonshine
       # provides iostat, needed for disk i/o plugin
       package 'sysstat', :ensure => :installed, :before => package('scout')
 
+      # needed for MySQL Slow Queries to work
+      # add user to adm group, to be able to acces
+      # FIXME this seems to run EVERY time, regarless of the unless
+      exec "usermod -a -G adm #{configuration[:user]}",
+        :unless => "groups #{configuration[:rails]} | egrep '\\badm\\b'", # this could probably be more succintly and strongly specfied
+        :before => package('scout')
+
       # needed for the rails plugin
       gem 'elif', :before => package('scout')
       gem 'request-log-analyzer', :ensure => :latest, :before => package('scout')
