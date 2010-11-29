@@ -37,7 +37,7 @@ module Moonshine
 
       # needed for the rails plugin
       gem 'elif', :before => package('scout')
-      gem 'request-log-analyzer', :before => package('scout')
+      gem 'request-log-analyzer', :ensure => :latest, :before => package('scout')
 
       # disable the old scout_agent
       file '/etc/init.d/scout_agent',
