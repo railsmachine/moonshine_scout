@@ -23,7 +23,7 @@ module Moonshine
       cron 'scout_checkin',
         :command  => "/usr/bin/scout #{options[:agent_key]}",
         :minute   => "*/#{options[:interval]||1}",
-      :user     => options[:user] || configuration[:user] || 'daemon'
+        :user     => options[:user] || configuration[:user] || 'daemon'
 
       # needed for apache status plugin
       package 'lynx', :ensure => :installed, :before => package('scout')
@@ -55,7 +55,7 @@ module Moonshine
         :enable  => false,
         :ensure  => :stopped,
         :require => file('/etc/init.d/scout_agent')
-        end
+    end
 
   end
 end
