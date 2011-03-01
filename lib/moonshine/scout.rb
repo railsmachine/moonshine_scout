@@ -39,7 +39,7 @@ module Moonshine
       # add user to adm group, to be able to acces
       # FIXME this seems to run EVERY time, regarless of the unless
       exec "usermod -a -G adm #{configuration[:user]}",
-        :unless => "groups #{configuration[:rails]} | egrep '\\badm\\b'", # this could probably be more succintly and strongly specfied
+        :unless => "groups #{configuration[:user]} | egrep '\\badm\\b'", # this could probably be more succintly and strongly specfied
         :before => package('scout')
 
       # needed for the rails plugin
