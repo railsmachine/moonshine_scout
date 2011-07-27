@@ -36,3 +36,5 @@ which it runs by using the respective keys:
     :interval:  15 # defaults to 3
     :user:      root # defaults to the moonshine user, or 'daemon' if that's not configured
 </pre>
+
+To use "private plugins":https://scoutapp.com/info/creating_a_plugin#private_plugins, you'll need to configure a scout_rsa.pub. Follow "the instruction":https://scoutapp.com/info/creating_a_plugin#private_plugins and copy the @scout_rsa.pub@ to @app/manifests/templates@.
