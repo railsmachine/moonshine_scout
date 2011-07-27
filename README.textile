@@ -1,7 +1,7 @@
-h1. Moonshine_Scout
+h1. Moonshine Scout
 
-A plugin "Moonshine":http://github.com/railsmachine/moonshine for installing
-and managing the "Scout gem":http://github.com/highgroove/scout/tree/master.
+A "Moonshine":http://github.com/railsmachine/moonshine plugin for installing
+and managing the "Scout":http://scoutapp.com "client":http://github.com/highgroove/scout-client.
 
 h3. Requirements
 
@@ -20,7 +20,6 @@ h3. Quickstart Instructions
   </pre>
 * Include the plugin and recipe(s) in your Moonshine manifest
   <pre>
-    plugin :scout
     recipe :scout
   </pre>
 
