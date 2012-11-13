@@ -18,9 +18,10 @@ module Moonshine
 
       # For convenience, we normalize the user scout will be running under.If nothing else, this will default to daemon.
       user = options[:user] || configuration[:user] || 'daemon'
+      agent_key = options[:agent_key] || configuration[:scout][:agent_key]
 
       # The only required option is :agent_key. We won't fail the deploy over it though, so just return instead.
-      unless options[:agent_key]
+      unless agent_key
         puts "To use the Scout agent, specify your key in config/moonshine.yml:"
         puts ":scout:"
         puts "  :agent_key: YOUR-SCOUT-KEY"
@@ -35,7 +36,7 @@ module Moonshine
       #
       # * `:interval`: defaults to every minute
       cron 'scout_checkin',
-        :command  => "/usr/bin/scout #{options[:agent_key]}",
+        :command  => "/usr/bin/scout #{agent_key}",
         :minute   => "*/#{options[:interval]||1}",
         :user     => user
 
