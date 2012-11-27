@@ -14,14 +14,9 @@ DESC="scout reporting agent"
 
 set -e
 
-# Make sure the binary and the config file are present before proceeding
-test -x /usr/bin/scout_agent || exit 0
-
 . /lib/lsb/init-functions
 
-
 RETVAL=0
-
 
 case "$1" in
 start)
@@ -30,22 +25,37 @@ start)
   ;;
 stop)
   echo -n "Stopping $DESC: "
-  /usr/bin/scout_agent stop
-  RETVAL=$?
+  if test -x /usr/bin/scout_agent; then
+    /usr/bin/scout_agent stop
+    RETVAL=$?
+  else
+    RETVAL=0
+  fi
+
   echo "$NAME."
   ;;
 restart)
   echo -n "Stopping $DESC: "
-  /usr/bin/scout_agent stop
-  echo "Disabled. Use scout via cron instead."
-  RETVAL=1
+  if test -x /usr/bin/scout_agent; then
+    echo "Disabled. Use scout via cron instead."
+    /usr/bin/scout_agent stop
+  else
+    RETVAL=0
+  fi
   ;;
 status)
-  /usr/bin/scout_agent status
-  RETVAL=$?
+  echo "Disabled. Use scout via cron instead."
+  if test -x /usr/bin/scout_agent; then
+    /usr/bin/scout_agent status
+    RETVAL=$?
+  else
+    RETVAL=1
+  fi
   ;;
 *)
   echo "Usage: scout_agent {start|stop|restart|status}"
-  exit 1
+  RETVAL=1
   ;;
 esac
+
+exit $RETVAL
