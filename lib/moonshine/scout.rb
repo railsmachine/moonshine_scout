@@ -19,7 +19,9 @@ module Moonshine
       # For convenience, we normalize the user scout will be running under.If nothing else, this will default to daemon.
       user = options[:user] || configuration[:user] || 'daemon'
       agent_key = options[:agent_key] || configuration[:scout][:agent_key]
-
+      realtime = options[:realtime] || configuration[:scout][:realtime] || false
+      port = options[:realtime] || configuration[:scout][:realtime] || "5555"
+            
       # The only required option is :agent_key. We won't fail the deploy over it though, so just return instead.
       unless agent_key
         puts "To use the Scout agent, specify your key in config/moonshine.yml:"
@@ -30,6 +32,9 @@ module Moonshine
 
       # First, install the scout gem. We want at least 5.3.3 for private plugin support.
       gem 'scout', :ensure => '>= 5.3.3'
+
+      # If Scout Realtime is wanted, install gem.
+      gem 'scout_realtime', :ensure => '~= 0.5.3' if realtime
 
       # Then, we need it to run regularly through cron.
       # This can be configured with:
