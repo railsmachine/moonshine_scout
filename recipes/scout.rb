@@ -7,8 +7,10 @@ namespace :scout do
     desc "[internal] set vars"
     task :set_vars do
         @scout = fetch(:scout)
-        @realtime = @scout[:realtime]
+        @realtime = @scout[:realtime] || {}
         @realtime[:port] ||= "5555"
+        @realtime[:pid] ||= "~/.scout/scout_realtime.pid"
+        @realtime[:log] ||= "~/.scout/scout_realtime.log"
         end
     
     desc "Start scout_realtime daemon"
@@ -52,12 +54,6 @@ namespace :scout do
       start_ssh_tunnel
       run_locally "open http://localhost:#{@realtime[:port]}"
     end
-    
-    desc "Testing"
-    task :testing_vars do
-      set_vars
-      puts @realtime[:port]
-    end
-    
+       
   end
 end
