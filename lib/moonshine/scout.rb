@@ -20,7 +20,7 @@ module Moonshine
       user = options[:user] || configuration[:user] || 'daemon'
       agent_key = options[:agent_key] || configuration[:scout][:agent_key]
       realtime = options[:realtime] || configuration[:scout][:realtime] || false
-      port = options[:realtime] || configuration[:scout][:realtime] || "5555"
+      realtime_version = realtime[:version] || "0.5.3"
             
       # The only required option is :agent_key. We won't fail the deploy over it though, so just return instead.
       unless agent_key
@@ -34,7 +34,7 @@ module Moonshine
       gem 'scout', :ensure => '>= 5.3.3'
 
       # If Scout Realtime is wanted, install gem.
-      gem 'scout_realtime', :ensure => '~= 0.5.3' if realtime
+      gem 'scout_realtime', :ensure => '~= #{realtime_version}' if realtime
 
       # Then, we need it to run regularly through cron.
       # This can be configured with:
