@@ -50,15 +50,15 @@ You can enable the scout realtime gem by setting :realtime: true in your manifes
     :pid:      PATH   # defaults to ~/scout/scout_realtime.pid
 </pre>
 
-<pre>
+
 Cap Tasks : 
- * @cap scout:realtime:start@   # Starts the scout_realtime daemon
- * @cap scout:realtime:stop@   #  Stops the scout_realtime daemon
- * @cap scout:realtime:foreground@    # Runs in the foreground, and does not daemonize the process.
- * @cap scout:realtime:open_firewall_port@  # Adds an iptables rule allowing traffic on the port selected in the yaml file.
- * @cap scout:realtime:close_firewall_port@ # Removes the iptables rule for the selected port.
- * @cap scout:realtime:open_web@   #  Opens the realtime web interface locally.
- * @cap scout:realtime:start_ssh_tunnel@    #  Starts an SSH tunnel for the 
-</pre>
+* @cap scout:realtime:start@   # Starts the scout_realtime daemon
+* @cap scout:realtime:stop@   #  Stops the scout_realtime daemon
+* @cap scout:realtime:foreground@    # Runs in the foreground, and does not daemonize the process.
+* @cap scout:realtime:open_firewall_port@  # Adds an iptables rule allowing traffic on the port selected in the yaml file.
+* @cap scout:realtime:close_firewall_port@ # Removes the iptables rule for the selected port.
+* @cap scout:realtime:open_web@   #  Opens the realtime web interface locally.
+* @cap scout:realtime:start_ssh_tunnel@    #  Starts an SSH tunnel for the 
+
 
 To use "private plugins":https://scoutapp.com/info/creating_a_plugin#private_plugins, you'll need to configure a scout_rsa.pub. Follow "the instruction":https://scoutapp.com/info/creating_a_plugin#private_plugins and copy the @scout_rsa.pub@ to @app/manifests/templates@.
