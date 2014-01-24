@@ -55,13 +55,13 @@ which must be set to TRUE to enable scout\_realtime )
         :pid:      PATH   # defaults to ~/scout/scout_realtime.pid
 
 Cap Tasks : 
--   [cap scout:realtime:start]   # Starts the scout_realtime daemon
--   [cap scout:realtime:stop]   #  Stops the scout_realtime daemon
--   [cap scout:realtime:foreground]    # Runs in the foreground, and does not daemonize the process.
--   [cap scout:realtime:open_firewall_port]  # Adds an iptables rule allowing traffic on the port selected in the yaml file.
--   [cap scout:realtime:close_firewall_port] # Removes the iptables rule for the selected port.
--   [cap scout:realtime:open_web]   #  Opens the realtime web interface locally.
--   [cap scout:realtime:start_ssh_tunnel]    #  Starts an SSH tunnel for the 
+[cap scout:realtime:start]   # Starts the scout_realtime daemon
+[cap scout:realtime:stop]   #  Stops the scout_realtime daemon
+[cap scout:realtime:foreground]    # Runs in the foreground, and does not daemonize the process.
+[cap scout:realtime:open_firewall_port]  # Adds an iptables rule allowing traffic on the port selected in the yaml file.
+[cap scout:realtime:close_firewall_port] # Removes the iptables rule for the selected port.
+[cap scout:realtime:open_web]   #  Opens the realtime web interface locally.
+[cap scout:realtime:start_ssh_tunnel]    #  Starts an SSH tunnel for the 
 
 To use [private plugins][], you’ll need to configure a scout\_rsa.pub.
 Follow [the instruction][private plugins] and copy the `scout_rsa.pub`
