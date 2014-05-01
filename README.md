@@ -37,7 +37,7 @@ which it runs by using the respective keys:
     :user:      root # defaults to the moonshine user, or 'daemon' if that's not configured
 </pre>
 
-To use [private plugins](https://scoutapp.com/info/creating_a_plugin#private_plugins), you'll need to configure a scout_rsa.pub. Follow the [instruction](https://scoutapp.com/info/creating_a_plugin#private_plugins) and copy the @scout_rsa.pub@ to @app/manifests/templates@.
+To use [private plugins](https://scoutapp.com/info/creating_a_plugin#private_plugins), you'll need to configure a scout_rsa.pub. Follow the [instruction](https://scoutapp.com/info/creating_a_plugin#private_plugins) and copy the <tt>scout_rsa.pub</tt> to <tt>app/manifests/templates</tt>.
 
 ***
 Unless otherwise specified, all content copyright &copy; 2014, [Rails Machine, LLC](http://railsmachine.com)
