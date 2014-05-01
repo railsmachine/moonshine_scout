@@ -27,7 +27,7 @@ Scout is now configured to run via cron every 3 minutes.
 
 # Advanced configuration
 
-You can adjust the @user@ that runs the Scout command and the @interval@ at
+You can adjust the <tt>user</tt> that runs the Scout command and the <tt>interval</tt> at
 which it runs by using the respective keys:
 
 <pre>
