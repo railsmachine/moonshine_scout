@@ -1,16 +1,16 @@
-h1. Moonshine Scout
+# Moonshine Scout
 
-A "Moonshine":http://github.com/railsmachine/moonshine plugin for installing
-and managing the "Scout":http://scoutapp.com "client":http://github.com/highgroove/scout-client.
+A [Moonshine](http://github.com/railsmachine/moonshine) plugin for installing
+and managing the [Scout](http://scoutapp.com) [client](http://github.com/highgroove/scout-client).
 
-h3. Requirements
+# Requirements
 
-* A "Scout":http://scoutapp.com account
+* A [Scout](http://scoutapp.com) account
 * The agent key for your server. This key will be provided at the time you add
 your server to Scout, and is also available under the Server Admin section of
 the site.
 
-h3. Quickstart Instructions
+# Quickstart Instructions
 
 * @script/plugin install git://github.com/railsmachine/moonshine_scout.git@
 * Configure agent key in @config/moonshine.yml@
@@ -25,7 +25,7 @@ h3. Quickstart Instructions
 
 Scout is now configured to run via cron every 3 minutes.
 
-h3. Advanced configuration
+# Advanced configuration
 
 You can adjust the @user@ that runs the Scout command and the @interval@ at
 which it runs by using the respective keys:
@@ -37,4 +37,7 @@ which it runs by using the respective keys:
     :user:      root # defaults to the moonshine user, or 'daemon' if that's not configured
 </pre>
 
-To use "private plugins":https://scoutapp.com/info/creating_a_plugin#private_plugins, you'll need to configure a scout_rsa.pub. Follow "the instruction":https://scoutapp.com/info/creating_a_plugin#private_plugins and copy the @scout_rsa.pub@ to @app/manifests/templates@.
+To use [private plugins](https://scoutapp.com/info/creating_a_plugin#private_plugins), you'll need to configure a scout_rsa.pub. Follow the [instruction](https://scoutapp.com/info/creating_a_plugin#private_plugins) and copy the @scout_rsa.pub@ to @app/manifests/templates@.
+
+***
+Unless otherwise specified, all content copyright &copy; 2014, [Rails Machine, LLC](http://railsmachine.com)
