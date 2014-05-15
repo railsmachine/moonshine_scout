@@ -28,8 +28,8 @@ module Moonshine
         return
       end
 
-      # First, install the scout gem. We want at least 5.3.3 for private plugin support.
-      gem 'scout', :ensure => '>= 5.3.3'
+      # First, install the scout gem.
+      gem 'scout', :ensure => (options[:version] || :latest)
 
       # Then, we need it to run regularly through cron.
       # This can be configured with:
@@ -41,7 +41,7 @@ module Moonshine
         :user     => user
 
       # Scout allows you to create your own [private plugins](https://scoutapp.com/info/creating_a_plugin#private_plugins). This requires some additional setup.
-      # 
+      #
       # The user checking into scout needs to have a ~/.scout/scout_rsa.pub file present to be able to use private plugins.
       #
       # moonshine_scout manages this by checking app/manifests/scout_rsa.pub, and setting it up on the server if it's around
@@ -64,7 +64,7 @@ module Moonshine
       # The Apache Status plugin calls apache2ctl status, which
       # requires lynx
       package 'lynx', :ensure => :installed, :before => package('scout')
-      # This can leave tempfiles around in /tmp though, so we setup a 
+      # This can leave tempfiles around in /tmp though, so we setup a
       # cronjob to clear it out
       cron 'cleanup_lynx_tempfiles',
         :command  => "find /tmp/ -name 'lynx*' -type d -delete",
