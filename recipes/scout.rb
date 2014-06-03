@@ -45,7 +45,7 @@ namespace :scout do
     desc "Start scout_realtime SSH tunnel"
     task :start_ssh_tunnel do
       set_vars
-      run_locally "ssh -NL #{@realtime[:port]}:localhost:#{@realtime[:port]} #{fetch(:user)}@$CAPISTRANO:HOST$"
+      run_locally "ssh -f #{fetch(:user)}@$CAPISTRANO:HOST$ #{@realtime[:port]}:$CAPISTRANO:HOST$:#{@realtime[:port]}"
     end
     
     desc "Open scout_realtime web interface"
