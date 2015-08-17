@@ -73,6 +73,18 @@ to `app/manifests/templates`.
   [client]: http://github.com/highgroove/scout-client
   [private plugins]: https://scoutapp.com/info/creating_a_plugin#private_plugins
 
+#### Scout Daemon
+
+You can enable the scoutd daemon by setting `:scoutd: true` in your
+moonshine.yml or manifest. The scoutd daemon runs as the scoutd user.
+For certain plugins you may need to give this user sudo access:
+
+    scoutd ALL=(root) NOPASSWD:ALL
+
+Or for just the commands that are required by the plugins:
+
+    scoutd ALL=(root) NOPASSWD:/usr/bin/passenger-status, /usr/bin/passenger-memory-stats
+
 =======
 # Moonshine Scout
 
