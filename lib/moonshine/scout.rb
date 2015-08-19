@@ -174,6 +174,23 @@ module Moonshine
         :require => exec('install scoutd'),
         :notify => service('scout')
 
+      exec 'scoutd add sudoers includedir',
+        :command => [
+          "cp /etc/sudoers /tmp/sudoers",
+          "echo '#includedir /etc/sudoers.d' >> /tmp/sudoers",
+          "visudo -c -f /tmp/sudoers",
+          "cp /tmp/sudoers /etc/sudoers",
+          "rm -f /tmp/sudoers"
+        ].join(' && '),
+        :unless => "grep '#includedir /etc/sudoers.d' /etc/sudoers"
+
+      file '/etc/sudoers.d/scoutd',
+        :content => template(File.join(File.dirname(__FILE__), 'scout', 'templates', 'scoutd.sudoers.erb'), binding),
+        :owner => 'root',
+        :group => 'root',
+        :mode => '440',
+        :require => [exec('install scoutd'), exec('scoutd add sudoers includedir')]
+
       service 'scout',
         :ensure => :running,
         :require => exec('install scoutd'),
