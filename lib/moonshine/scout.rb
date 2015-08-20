@@ -134,7 +134,7 @@ module Moonshine
       end
 
       exec 'add scout apt key',
-        :command => 'wget -q -O - https://archive.scoutapp.com/scout-archive.key | sudo apt-key -',
+        :command => 'wget -q -O - https://archive.scoutapp.com/scout-archive.key | sudo apt-key add -',
         :unless => "sudo apt-key list | grep 'Scout Packages (archive.scoutapp.com) <support@scoutapp.com>'",
         :require => package('python-software-properties')
 
