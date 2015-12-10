@@ -124,15 +124,6 @@ module Moonshine
     end
 
     def scoutd(options, user, agent_key)
-      if ubuntu_trusty?
-        package 'software-properties-common',
-          :alias => 'python-software-properties',
-          :ensure => :installed
-      else
-        package 'python-software-properties',
-          :ensure => :installed
-      end
-
       exec 'add scout apt key',
         :command => 'wget -q -O - https://archive.scoutapp.com/scout-archive.key | sudo apt-key add -',
         :unless => "sudo apt-key list | grep 'Scout Packages (archive.scoutapp.com) <support@scoutapp.com>'",
