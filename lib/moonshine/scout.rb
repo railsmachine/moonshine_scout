@@ -155,6 +155,7 @@ module Moonshine
         :command => "sudo cp -r /home/#{configuration[:user]}/.scout/* /var/lib/scoutd/ && sudo chown -R scoutd:scoutd /var/lib/scoutd",
         :subscribe => exec('install scoutd'),
         :require => exec('install scoutd'),
+        :onlyif => "test -d /home/#{configuration[:user]}/.scout/",
         :refreshonly => true
 
       file '/etc/scout/scoutd.yml',
