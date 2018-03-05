@@ -73,8 +73,8 @@ module Moonshine
 
       exec 'copy scout config directory',
         :command => "sudo cp -r /home/#{configuration[:user]}/.scout/* /var/lib/scoutd/ && sudo chown -R scoutd:scoutd /var/lib/scoutd",
-        :subscribe => exec('install scoutd'),
-        :require => exec('install scoutd'),
+        :subscribe => package('scoutd'),
+        :require => package('scoutd'),
         :onlyif => "test -d /home/#{configuration[:user]}/.scout/",
         :refreshonly => true
 
@@ -83,7 +83,7 @@ module Moonshine
         :owner => 'scoutd',
         :group => 'scoutd',
         :mode => '640',
-        :require => exec('install scoutd'),
+        :require => package('scoutd'),
         :notify => service('scout')
 
       exec 'scoutd add sudoers includedir',
@@ -101,11 +101,11 @@ module Moonshine
         :owner => 'root',
         :group => 'root',
         :mode => '440',
-        :require => [exec('install scoutd'), exec('scoutd add sudoers includedir')]
+        :require => [package('scoutd'), exec('scoutd add sudoers includedir')]
 
       service 'scout',
         :ensure => :running,
-        :require => exec('install scoutd'),
+        :require => package('scoutd'),
         :enable => true
     end
   end
