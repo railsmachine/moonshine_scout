@@ -60,10 +60,9 @@ module Moonshine
         :command => 'sudo apt-get update',
         :require => file('/etc/apt/sources.list.d/scout.list')
 
-      exec 'install scoutd',
-        :command => "env SCOUT_KEY=#{agent_key} apt-get -y install scoutd",
-        :unless => "dpkg -l | grep 'ii  scoutd'",
-        :require => [file('/etc/apt/sources.list.d/scout.list'), exec('scout apt-get update')]
+      package 'scoutd',
+        :ensure => :latest,
+        :require => exec('scout apt-get update')
 
       gem 'scout', :ensure => :purged
 
