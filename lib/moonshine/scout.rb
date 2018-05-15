@@ -46,11 +46,11 @@ module Moonshine
 
     def scoutd(options, user, agent_key)
       exec 'add scout apt key',
-        :command => 'wget -q -O - https://archive.scoutapp.com/scout-archive.key | sudo apt-key add -',
+        :command => 'wget -q -O - https://archive.server.pingdom.com/scout-archive.key | sudo apt-key add -',
         :unless => "sudo apt-key list | grep 'Scout Packages (archive.scoutapp.com) <support@scoutapp.com>'",
         :require => package('python-software-properties')
 
-      repo_path = "deb http://archive.scoutapp.com ubuntu main"
+      repo_path = "deb http://archive.server.pingdom.com ubuntu main"
 
       file '/etc/apt/sources.list.d/scout.list',
         :content => repo_path,
